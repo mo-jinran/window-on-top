@@ -1,0 +1,15 @@
+{
+    "manifest_version": 1,
+    "type": "extension",
+    "name": "window-on-top",
+    "slug": "window_on_top",
+    "description": "添加窗口置顶按钮",
+    "version": "0.1.0",
+    "author": [
+        {
+            "name": "沫烬染",
+            "link": "https://github.com/mo-jinran"
+        }
+    ],
+    "inject": "./main.js"
+}
