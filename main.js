@@ -12,7 +12,6 @@ function injectJS(webContents) {
 
 
 function onLoad(plugin) {
-    global.plugin = plugin;
     // 置顶按钮
     ipcMain.handle(
         "betterQQNT.window_on_top.toggleWindowOnTop",
@@ -25,10 +24,12 @@ function onLoad(plugin) {
 }
 
 
-function onBrowserWindowCreated(window) {
-    window.webContents.session.setPreloads([
+function onBrowserWindowCreated(window, plugin) {
+    const preloads = Array.from(new Set([
+        ...window.webContents.session.getPreloads(),
         path.join(plugin.path, "preload.js")
-    ]);
+    ]));
+    window.webContents.session.setPreloads(preloads);
     window.on("ready-to-show", () => {
         injectJS(window.webContents);
     });

@@ -31,10 +31,12 @@
             clearInterval(interval);
         }
 
-        // 获取窗口控制区域
-        const childNodes = window_control_area.childNodes;
+        try {
+            // 获取窗口控制区域
+            const childNodes = window_control_area.childNodes;
 
-        // 插入
-        window_control_area.insertBefore(node, childNodes[0]);
+            // 插入
+            window_control_area.insertBefore(node, childNodes[0]);
+        } catch (error) { }
     }, 100);
 })();
