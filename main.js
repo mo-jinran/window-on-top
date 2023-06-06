@@ -24,12 +24,7 @@ function onLoad(plugin) {
 }
 
 
-function onBrowserWindowCreated(window, plugin) {
-    const preloads = Array.from(new Set([
-        ...window.webContents.session.getPreloads(),
-        path.join(plugin.path, "preload.js")
-    ]));
-    window.webContents.session.setPreloads(preloads);
+function onBrowserWindowCreated(window) {
     window.on("ready-to-show", () => {
         injectJS(window.webContents);
     });

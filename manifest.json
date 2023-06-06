@@ -11,5 +11,8 @@
             "link": "https://github.com/mo-jinran"
         }
     ],
-    "inject": "./main.js"
+    "injects": {
+        "main": "./main.js",
+        "preload": "./preload.js"
+    }
 }
