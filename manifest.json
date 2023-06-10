@@ -1,10 +1,10 @@
 {
     "manifest_version": 1,
     "type": "extension",
-    "name": "window-on-top",
+    "name": "窗口置顶",
     "slug": "window_on_top",
     "description": "添加窗口置顶按钮",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "author": [
         {
             "name": "沫烬染",
@@ -12,6 +12,7 @@
         }
     ],
     "injects": {
+        "renderer": "./renderer.js",
         "main": "./main.js",
         "preload": "./preload.js"
     }

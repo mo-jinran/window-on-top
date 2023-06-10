@@ -1,14 +1,4 @@
-const fs = require("fs");
-const path = require("path");
 const { BrowserWindow, ipcMain } = require("electron");
-
-
-// 注入js
-function injectJS(webContents) {
-    const filepath = path.join(__dirname, "renderer.js");
-    const filetext = fs.readFileSync(filepath, "utf-8");
-    webContents.executeJavaScript(filetext, true);
-}
 
 
 function onLoad(plugin) {
@@ -24,14 +14,6 @@ function onLoad(plugin) {
 }
 
 
-function onBrowserWindowCreated(window) {
-    window.on("ready-to-show", () => {
-        injectJS(window.webContents);
-    });
-}
-
-
 module.exports = {
-    onLoad,
-    onBrowserWindowCreated
+    onLoad
 }
