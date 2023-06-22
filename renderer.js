@@ -36,6 +36,21 @@ export function onLoad() {
             const childNodes = window_control_area.childNodes;
             // 插入
             window_control_area.insertBefore(node, childNodes[0]);
+
+            // 获取两个按钮元素
+            let button1 = document.querySelector('.setting[data-v-6afc84c4]');
+            let button2 = document.querySelector('div[aria-label="置顶"]');
+
+            // 获取按钮的位置和尺寸
+            let rect1 = button1.getBoundingClientRect();
+            let rect2 = button2.getBoundingClientRect();
+
+            // 计算目标位置
+            let targetLeft = rect2.left - rect1.width;
+
+            // 设置按钮的位置
+            button1.style.position = 'absolute';
+            button1.style.left = targetLeft + 'px';
         } catch (error) { }
     }, 100);
 }
