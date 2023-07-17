@@ -1,15 +1,21 @@
 {
-    "manifest_version": 1,
+    "manifest_version": 2,
     "type": "extension",
     "name": "窗口置顶",
     "slug": "window_on_top",
     "description": "添加窗口置顶按钮",
     "version": "0.1.4",
-    "author": [
-        {
-            "name": "沫烬染",
-            "link": "https://github.com/mo-jinran"
-        }
+    "author": {
+        "name": "沫烬染",
+        "link": "https://github.com/mo-jinran"
+    },
+    "repository": {
+        "repo": "mo-jinran/window-on-top",
+        "branch": "main"
+    },
+    "platform": [
+        "win32",
+        "linux"
     ],
     "injects": {
         "renderer": "./src/renderer.js",
