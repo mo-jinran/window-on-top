@@ -23,7 +23,12 @@ const interval = setInterval(() => {
     const setting_btn = document.querySelector(".login-container .setting");
     if (window_control_area) {
         clearInterval(interval);
-        window_control_area.insertBefore(button, window_control_area.childNodes[0]);
+        // Preload may run more than once for the same document.
+        if (!window_control_area.querySelector('[data-window-on-top-button]')) {
+            button.setAttribute('data-window-on-top-button', '');
+            button.title = '窗口置顶';
+            window_control_area.insertBefore(button, window_control_area.childNodes[0]);
+        }
     }
     if (setting_btn) {
         setting_btn.style.marginRight = "32px";

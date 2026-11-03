@@ -1,0 +1,14 @@
+const vm = require('node:vm');
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const source = fs.readFileSync(require('node:path').join(__dirname, '../src/preload.js'), 'utf8');
+let pinned = false;
+const area = {childNodes: [], querySelector() { return this.childNodes.find(b => 'data-window-on-top-button' in b.attrs); }, insertBefore(b) { this.childNodes.unshift(b); }};
+const callbacks = [];
+const document = {createElement() {return {attrs: {}, style: {}, setAttribute(k,v) {this.attrs[k]=v;}, removeAttribute(k) {if(k==='style') this.style={};}, addEventListener(k, fn) {this[k]=fn;}};}, querySelector(s) {return s === '.window-control-area' ? area : null;}};
+for(let i=0;i<5;i++) vm.runInNewContext(source, {document, require() {return {ipcRenderer: {sendSync() {pinned=!pinned;return pinned;}}};}, setInterval(fn) {callbacks.push(fn);return callbacks.length;}, clearInterval() {}});
+callbacks.forEach(fn=>fn());
+assert.equal(area.childNodes.length,1,'duplicate preload must add one button');
+area.childNodes[0].click(); assert.equal(pinned,true); assert.ok(area.childNodes[0].style.backgroundColor);
+area.childNodes[0].click(); assert.equal(pinned,false); assert.equal(area.childNodes[0].style.backgroundColor,undefined);
+console.log('PASS: five preload executions create one button; pin/unpin works.');
